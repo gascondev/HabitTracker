@@ -39,19 +39,12 @@ struct HabitView: View {
                 .font(.title3)
                 .cornerRadius(25)
                 
-                
-                
-                
                 Spacer()
                 Spacer()
             }
             .navigationTitle(habit.title)
         }
     }
-
-//    init(habit: HabitItem) {
-//        self.habit = habit
-//    }
 }
 
 

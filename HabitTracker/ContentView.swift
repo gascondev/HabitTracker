@@ -10,35 +10,35 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var data = Habits()
-    @AppStorage("count") private var count = 0
     
     var body: some View {
         NavigationStack {
-            List(data.habits) { habit in
-                NavigationLink {
-                    HabitView(data: data, habit: habit)
-                    
-                } label: {
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(habit.title)
-                                .font(.headline)
-                            Text(habit.description)
-                        }
-
-                        Spacer()
+            List {
+                ForEach(data.habits) { habit in
+                    NavigationLink {
+                        HabitView(data: data, habit: habit)
                         
-                        Text("\(habit.count)")
-                            .font(.title)
-                            .padding(5)
-                            .frame(minWidth: 50)
-                            .background(color(for: habit))
-                            .foregroundStyle(.white)
-                            .clipShape(Capsule())
+                    } label: {
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(habit.title)
+                                    .font(.headline)
+                                Text(habit.description)
+                            }
+                            
+                            Spacer()
+                            
+                            Text("\(habit.count)")
+                                .font(.title)
+                                .padding(5)
+                                .frame(minWidth: 50)
+                                .background(color(for: habit))
+                                .foregroundStyle(.white)
+                                .clipShape(Capsule())
+                        }
                     }
                 }
-                
-//                .onDelete(perform: onDelete)
+                .onDelete(perform: onDelete)
             }
             .navigationTitle("Habits")
             .toolbar {
@@ -46,12 +46,17 @@ struct ContentView: View {
                     AddView(data: data)
                 } label: {
                     Label("Add Habit", systemImage: "plus")
+                        
                 }
             }
-            .toolbar {
-                EditButton()
-            }
+//            .toolbar {
+//                EditButton()
+//            }
         }
+    }
+    
+    func onDelete(at offsets: IndexSet) {
+        data.habits.remove(atOffsets: offsets)
     }
     
     func color(for habit: HabitItem) -> Color {
@@ -67,10 +72,6 @@ struct ContentView: View {
             .indigo
         }
     }
-    
-//    func onDelete(at offsets: IndexSet) {
-//        habits.items.remove(atOffsets: offsets)
-//    }
 }
 
 #Preview {

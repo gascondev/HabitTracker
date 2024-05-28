@@ -14,7 +14,6 @@ struct AddView: View {
     
     @State private var title = ""
     @State private var description = ""
-//    @State private var count = 0
     
     
     
